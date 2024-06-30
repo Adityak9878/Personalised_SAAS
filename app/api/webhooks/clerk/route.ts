@@ -16,6 +16,7 @@ export async function POST(req: Request) {
     );
   }
 
+  console.log("Working?????\n");
   // Get the headers
   const headerPayload = headers();
   const svix_id = headerPayload.get("svix-id");
