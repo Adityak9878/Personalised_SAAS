@@ -1,6 +1,6 @@
 "use server";
 
-// We need to Sync the data between the Clerk and and database models created so we need to make
+// We need to Sync the data between the Clerk and the database models created so we need to make
 // Web Hooks for that....
 // We need to Deploy.....
 
@@ -16,9 +16,11 @@ export async function createUser(user: CreateUserParams) {
     await connectToDatabase();
 
     const newUser = await User.create(user);
+    console.log("New user created:", newUser);
 
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
+    console.error("Error creating user:", error);
     handleError(error);
   }
 }
@@ -34,6 +36,7 @@ export async function getUserById(userId: string) {
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
+    console.error("Error getting user by ID:", error);
     handleError(error);
   }
 }
@@ -49,8 +52,10 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
 
     if (!updatedUser) throw new Error("User update failed");
     
+    console.log("User updated:", updatedUser);
     return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
+    console.error("Error updating user:", error);
     handleError(error);
   }
 }
@@ -71,8 +76,10 @@ export async function deleteUser(clerkId: string) {
     const deletedUser = await User.findByIdAndDelete(userToDelete._id);
     revalidatePath("/");
 
+    console.log("User deleted:", deletedUser);
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
   } catch (error) {
+    console.error("Error deleting user:", error);
     handleError(error);
   }
 }
@@ -90,8 +97,10 @@ export async function updateCredits(userId: string, creditFee: number) {
 
     if(!updatedUserCredits) throw new Error("User credits update failed");
 
+    console.log("User credits updated:", updatedUserCredits);
     return JSON.parse(JSON.stringify(updatedUserCredits));
   } catch (error) {
+    console.error("Error updating credits:", error);
     handleError(error);
   }
 }

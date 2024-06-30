@@ -14,7 +14,7 @@ declare type CreateUserParams = {
     firstName: string | null;
     lastName: string | null;
     username: string | null;
-    photo: string | null;
+    photo: string;
   };
   
   // ====== IMAGE PARAMS
